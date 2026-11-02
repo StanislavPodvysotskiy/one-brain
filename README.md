@@ -40,7 +40,7 @@ Requirements: Python 3.8+ (standard library only), Git (recommended), Obsidian (
 just Markdown). Tested on macOS; Linux should work; on Windows use WSL.
 
 ```bash
-git clone https://github.com/<you>/one-brain.git
+git clone https://github.com/StanislavPodvysotskiy/one-brain.git
 cd one-brain
 python3 install.py ~/OneBrain
 ```
