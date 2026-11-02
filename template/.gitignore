@@ -1,0 +1,12 @@
+# Per-device Obsidian state
+.obsidian/workspace*.json
+.obsidian/cache
+.trash/
+
+# macOS
+.DS_Store
+
+# Secrets never belong in the vault, just in case
+.env
+*.key
+*secret*
