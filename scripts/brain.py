@@ -10,7 +10,8 @@ Commands:
   brain.py find [FOLDER]                          which project a folder belongs to (by the repo: field)
   brain.py context [PROJECT|FOLDER] [-n N] [--web] project context: README, STATUS, DECISIONS, N sessions
   brain.py save-session PROJECT MODEL TOPIC       session summary from stdin (or an empty template) into sessions/
-  brain.py save-status PROJECT                    STATUS.md from stdin (the old version stays in Git)
+  brain.py save-status PROJECT                    STATUS.md from stdin (the old version stays in Git);
+                                                  status: must be active, paused or done
   brain.py new-project PROJECT [--repo FOLDER]    project folder from templates + a row in 00_Home.md
   brain.py import-prompt [--model NAME]           web-chat prompt: export your projects without duplicates
 """
@@ -27,6 +28,8 @@ TEMPLATES = VAULT / "90_Templates"
 HOME_NOTE = VAULT / "00_Home.md"
 PROFILE = VAULT / "20_Knowledge" / "User Profile.md"
 HOME_MARKER = "\n<!-- Models: update your project's row"
+# The only allowed values of `status:` in STATUS.md; keep in sync with AGENTS.md, SKILL.md, README
+STATUSES = ("active", "paused", "done")
 
 WEB_HEADER = """# Context of the project "{name}" from the One Brain vault
 
@@ -68,6 +71,10 @@ def frontmatter(path):
         text = path.read_text(encoding="utf-8")
     except FileNotFoundError:
         return {}
+    return parse_frontmatter(text)
+
+
+def parse_frontmatter(text):
     m = re.match(r"---\n(.*?)\n---", text, re.S)
     if not m:
         return {}
@@ -222,6 +229,11 @@ def cmd_save_status(a):
     body = read_stdin()
     if not body:
         fail("Pass the new STATUS.md on stdin.")
+    # A free-form status breaks the summary on the home page, so only the fixed values pass
+    status = parse_frontmatter(body).get("status")
+    if status not in STATUSES:
+        fail(f'STATUS.md front matter needs "status:" set to one of: {", ".join(STATUSES)} '
+             f'(got "{status or "nothing"}"). Nothing was saved.')
     (d / "STATUS.md").write_text(body.rstrip("\n") + "\n", encoding="utf-8")
     print((d / "STATUS.md").relative_to(VAULT))
 

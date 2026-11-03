@@ -136,6 +136,9 @@ AGENTS.md            rules for every model (edit them to taste)
 skills/, global/, scripts/   managed by the installer
 ```
 
+A project's `status` (in the `STATUS.md` front matter) is one of `active`, `paused` or `done`.
+`save-status` refuses any other value, so the summary on the home page stays consistent.
+
 The sample project `10_Projects/Example - Weather Bot` shows a filled-in card with sessions from
 two different models. Delete it (and its row in `00_Home.md`) when you no longer need it.
 

@@ -72,7 +72,8 @@ after they agree:
 
 2. **STATUS.md** — read the current `10_Projects/<Project>/STATUS.md` and write the whole updated
    file with `save-status`. Keep the `---…---` front matter and update `updated` (today), `model`
-   (you) and `next` (the main next step in one phrase). Keep "Done" short.
+   (you) and `next` (the main next step in one phrase). `status` is one of `active` (in work),
+   `paused` (on hold) or `done` (finished); `save-status` rejects anything else. Keep "Done" short.
 3. If the status or next step changed, update the project row in the table in
    `{{VAULT}}/00_Home.md`.
 4. Tell the user which files changed.
