@@ -46,3 +46,8 @@ targets are skipped, the Hermes config is restored byte for byte after uninstall
 - In zsh `$CMD args` is not word-split; call `python3 "$B" …` or use a function.
 - Skills are copied, not symlinked: some tools skip symlinked skill folders when scanning.
 - A project name never contains `/`: `context` treats a value with `/` as a folder path.
+- `save-decisions` inserts entries right after the `# ` title and its `> ` note (`decisions_top`),
+  so a DECISIONS.md template must keep that shape. It ignores HTML comments when checking numbers:
+  the entry template inside `<!-- -->` contains `## D-001.` and is not a real entry.
+- A web chat can't write files, so every file it changes needs its own clipboard step in
+  `save-session.sh` (summary, decisions, status) — otherwise its decisions live only in the summary.
