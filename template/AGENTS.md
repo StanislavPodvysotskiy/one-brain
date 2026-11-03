@@ -66,7 +66,7 @@ When the user says "close the session" (or "save progress", "write it to the bra
    `<model>` is your name in lower case: `claude`, `kimi`, `qwen`… The easiest way is
    `brain.py save-session`: it picks a free file name and adds the front matter.
 2. Update `STATUS.md`: move finished items to "Done", update "In progress" and "Next steps", set
-   `updated`, `model` and `next` in the front matter. Keep STATUS short (one screen): compress
+   `updated`, `model`, `next` and `status` in the front matter. Keep STATUS short (one screen): compress
    old "Done" items, the details are in the sessions.
 3. If new decisions appeared, make sure they are in `DECISIONS.md`.
 4. Update the project row in `00_Home.md` if the status or next step changed.
@@ -94,4 +94,8 @@ model with file access distributes it.
   know what was done, what failed and why, and what to do next.
 - Dates are `YYYY-MM-DD`. Links between notes use Obsidian syntax `[[Note name]]`.
 - Keep the front matter (the `---` block at the top of a file): `00_Home.md` is built from it.
+- `status` in `STATUS.md` is one of three values, nothing else:
+  `active` — the project is being worked on; `paused` — on hold, will be resumed;
+  `done` — finished (the user may later move its folder to `99_Archive/`).
+  `brain.py save-status` rejects any other value.
 - Don't change the vault layout or this file unless the user asks.
