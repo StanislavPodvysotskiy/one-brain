@@ -12,6 +12,7 @@ Commands:
   brain.py save-session PROJECT MODEL TOPIC       session summary from stdin (or an empty template) into sessions/
   brain.py save-status PROJECT                    STATUS.md from stdin (the old version stays in Git);
                                                   status: must be active, paused or done
+  brain.py save-decisions PROJECT                 new DECISIONS.md entries from stdin, put on top
   brain.py new-project PROJECT [--repo FOLDER]    project folder from templates + a row in 00_Home.md
   brain.py import-prompt [--model NAME]           web-chat prompt: export your projects without duplicates
 """
@@ -36,8 +37,11 @@ WEB_HEADER = """# Context of the project "{name}" from the One Brain vault
 You are continuing work on this project. Below are the vault rules, the user profile and the
 current state of the project. You have no file access, so:
 1. First, tell the user in 5–10 lines where the project stands and what the next step is.
-2. When the user says "close the session", output TWO Markdown blocks:
-   the session summary following the "Session" template and the whole updated STATUS.md.
+2. When the user says "close the session", output Markdown blocks in this order:
+   - the session summary following the "Session" template;
+   - only if decisions were made: the new DECISIONS.md entries in that file's entry format,
+     numbered after its last entry;
+   - the whole updated STATUS.md.
 """
 
 IMPORT_HEADER = """# Import your projects into the One Brain shared memory
@@ -238,6 +242,34 @@ def cmd_save_status(a):
     print((d / "STATUS.md").relative_to(VAULT))
 
 
+def decisions_top(text):
+    """Where new entries go: right after the title and its "> …" note, above older entries."""
+    lines = text.splitlines(keepends=True)
+    i = next((n + 1 for n, line in enumerate(lines) if line.startswith("# ")), len(lines))
+    while i < len(lines) and (not lines[i].strip() or lines[i].startswith(">")):
+        i += 1
+    return sum(len(line) for line in lines[:i])
+
+
+def cmd_save_decisions(a):
+    path = project_dir(a.project) / "DECISIONS.md"
+    if not path.is_file():
+        fail("No DECISIONS.md in the project. Nothing was saved.")
+    body = read_stdin()
+    if not re.search(r"^## ", body, re.M):
+        fail('Pass the new DECISIONS.md entries on stdin, each starting with "## ". Nothing was saved.')
+    text = path.read_text(encoding="utf-8")
+    # The entry template sits in an HTML comment and contains "## D-001." — it is not an entry
+    taken = set(re.findall(r"^## (\S+?)\.", re.sub(r"<!--.*?-->", "", text, flags=re.S), re.M))
+    clash = [n for n in re.findall(r"^## (\S+?)\.", body, re.M) if n in taken]
+    if clash:
+        fail(f"{clash[0]} is already in DECISIONS.md — renumber the new entry. Nothing was saved.")
+    pos = decisions_top(text)
+    head = text[:pos].rstrip("\n") + "\n\n"
+    path.write_text(head + body.strip("\n") + "\n\n" + text[pos:].lstrip("\n"), encoding="utf-8")
+    print(path.relative_to(VAULT))
+
+
 def cmd_new_project(a):
     d = PROJECTS / a.project
     if d.exists():
@@ -292,6 +324,9 @@ def main():
     p = sub.add_parser("save-status")
     p.add_argument("project")
     p.set_defaults(func=cmd_save_status)
+    p = sub.add_parser("save-decisions")
+    p.add_argument("project")
+    p.set_defaults(func=cmd_save_decisions)
     p = sub.add_parser("new-project")
     p.add_argument("project")
     p.add_argument("--repo", help="folder(s) of the project's code, comma-separated, if outside the vault")

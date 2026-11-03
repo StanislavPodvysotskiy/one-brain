@@ -65,7 +65,7 @@ Then:
 | Start working on a project | Just start in its folder, or say *"let's continue the Weather Bot project"*. The model reads README, STATUS, DECISIONS and the latest sessions and tells you where things stand. |
 | Save what was done | Say *"close the session"* (or *"save progress"*, in any language). The model writes a session summary and updates STATUS. |
 | Add a project | `python3 ~/OneBrain/scripts/brain.py new-project "Name" --repo ~/code/name` — or ask a model to do it. Several folders: `--repo "~/code/app, ~/docs/app"`. |
-| Use a web chat (no file access) | `~/OneBrain/scripts/context-pack.sh "Name"` copies the context to the clipboard; paste it into the chat. At the end copy the model's summary and run `scripts/save-session.sh "Name" kimi "topic"`, then copy the new STATUS and run `scripts/save-session.sh "Name" status`. |
+| Use a web chat (no file access) | `~/OneBrain/scripts/context-pack.sh "Name"` copies the context to the clipboard; paste it into the chat. At the end copy the model's summary and run `scripts/save-session.sh "Name" kimi "topic"`. If the chat made decisions, copy them and run `scripts/save-session.sh "Name" decisions`. Then copy the new STATUS and run `scripts/save-session.sh "Name" status`. |
 | Import a model's chat history | `~/OneBrain/scripts/import-prompt.sh kimi` copies a prompt listing the projects you already have. Paste it into that model's chat, save the answer to `00_Inbox/`, then ask a model with file access: *"distribute 00_Inbox/<file> across One Brain projects"*. |
 
 The full protocol the models follow is in [`template/AGENTS.md`](template/AGENTS.md); the
@@ -79,6 +79,7 @@ find [FOLDER]                          which project a folder belongs to
 context [PROJECT|FOLDER] [-n N] [--web] README + STATUS + DECISIONS + latest N sessions
 save-session PROJECT MODEL TOPIC       session summary from stdin into sessions/
 save-status PROJECT                    replace STATUS.md with stdin (history stays in Git)
+save-decisions PROJECT                 new DECISIONS.md entries from stdin, put on top
 new-project PROJECT [--repo FOLDERS]   project from templates + a row on the home page
 import-prompt [--model NAME]           web-chat prompt to export a model's projects
 ```

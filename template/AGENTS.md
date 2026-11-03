@@ -25,7 +25,7 @@ AGENTS.md                ← this file, rules for all models
 99_Archive/              ← finished and frozen projects
 skills/one-brain/        ← the shared skill, installed into every tool
 global/AGENTS.md         ← the global rule, installed into every tool
-scripts/brain.py         ← helper: list, find, context, save-session, save-status, new-project
+scripts/brain.py         ← helper: list, find, context, save-session, save-status, save-decisions, new-project
 ```
 
 A project is linked to its code or document folders through the `repo:` field in its `README.md`
@@ -72,8 +72,9 @@ When the user says "close the session" (or "save progress", "write it to the bra
 4. Update the project row in `00_Home.md` if the status or next step changed.
 5. Show the user which files you changed.
 
-Without file access (a web chat) — output the session summary and the new STATUS.md as Markdown
-blocks; the user saves them with `scripts/save-session.sh`.
+Without file access (a web chat) — output Markdown blocks: the session summary, the new
+`DECISIONS.md` entries if decisions were made (numbered after the last entry), and the new
+STATUS.md. The user saves each of them with `scripts/save-session.sh`.
 
 ### 4. Importing projects from a model's history
 

@@ -28,6 +28,9 @@ EOF
 python3 "$B" save-status "Project name" <<'EOF'
 ...the whole new STATUS.md...
 EOF
+python3 "$B" save-decisions "Project name" <<'EOF'
+...new DECISIONS.md entries, newest first...
+EOF
 python3 "$B" new-project "Project name" --repo ~/code/folder
 ```
 
@@ -48,7 +51,8 @@ don't spend time on them.
 
 An important decision was made (an approach or technology chosen, an option rejected) — add an
 entry at the top of the list in `10_Projects/<Project>/DECISIONS.md` following the sample in that
-file: what was decided, why, what was rejected. Never delete old entries.
+file: what was decided, why, what was rejected. Never delete old entries. `save-decisions` puts
+entries on top for you and refuses a number that is already taken.
 
 ## 3. Ending the session
 
