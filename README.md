@@ -52,8 +52,8 @@ your machine — see [What the installer changes](#what-the-installer-changes).
 
 Then:
 
-1. Open `~/OneBrain` in Obsidian as a vault. Recommended community plugins: **Obsidian Git**
-   (auto-commit) and **Dataview** (the summary tables on the home page).
+1. Open `~/OneBrain` in Obsidian as a vault. Recommended community plugins: **Git**
+   by Vinzent (auto-commit) and **Dataview** (the summary tables on the home page).
 2. Fill in `20_Knowledge/User Profile.md` — who you are and how you like to work.
 3. Ask any connected model: *"What projects do I have in One Brain?"*
 
