@@ -1,6 +1,6 @@
 ---
 name: one-brain
-description: Shared project memory of the user in the "One Brain" Obsidian vault. Use it at the start of work on any project (code, document, research, any multi-step task) to learn what was already done, which decisions were made and what to do next; when an important decision is made; and at the end of a session when the user says "close the session", "save progress" or "write it to the brain" (in any language). Also when the user asks "what's the status of the project", "where did we stop", "what's next".
+description: Shared project memory of the user in the "One Brain" Obsidian vault. Use it at the start of work on any project (code, document, research, any multi-step task) to learn what was already done, which decisions were made and what to do next; when an important decision is made; and at the end of a session when the user says "close the session", "save progress" or "write it to the brain" (in any language). Also when the user asks "what's the status of the project", "where did we stop", "what's next", "what projects do I have"; when they say "record a decision" or "create a project".
 ---
 
 # One Brain — shared project memory
@@ -52,7 +52,11 @@ don't spend time on them.
 An important decision was made (an approach or technology chosen, an option rejected) — add an
 entry at the top of the list in `10_Projects/<Project>/DECISIONS.md` following the sample in that
 file: what was decided, why, what was rejected. Never delete old entries. `save-decisions` puts
-entries on top for you and refuses a number that is already taken.
+entries on top for you and refuses a number that is already taken. "Record a decision: …" means the
+same thing.
+
+"Create a project X" — `new-project` with `--repo` for the current folder, if the work lives there.
+"What projects do I have?" — `list`.
 
 ## 3. Ending the session
 
