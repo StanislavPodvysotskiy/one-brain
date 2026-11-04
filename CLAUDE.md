@@ -21,7 +21,8 @@ sections) ↔ `template/AGENTS.md` (protocol) ↔ `README.md` (commands, tools t
 section headings (`## Goal`) are parsed by `brain.py` (`project_goal`) — rename both together.
 The allowed `status` values live in `brain.py` (`STATUSES`, checked by `save-status`) and are
 listed in `template/AGENTS.md`, `SKILL.md` and `README.md` — change all four together.
-Every change updates the README and this file in the same commit.
+`README.ru.md` is the Russian translation of `README.md`: change them together.
+Every change updates the READMEs and this file in the same commit.
 
 ## Testing
 
