@@ -46,6 +46,8 @@ targets are skipped, the Hermes config is restored byte for byte after uninstall
   in the same way, so a pbcopy→pbpaste round trip hides the bug.
 - In zsh `$CMD args` is not word-split; call `python3 "$B" …` or use a function.
 - Skills are copied, not symlinked: some tools skip symlinked skill folders when scanning.
+- The Obsidian plugin for auto-commits is listed in the catalog as **Git** (id `obsidian-git`, by
+  Vinzent), not "Obsidian Git" — searching for the old name in Obsidian may not find it.
 - A project name never contains `/`: `context` treats a value with `/` as a folder path.
 - `save-decisions` inserts entries right after the `# ` title and its `> ` note (`decisions_top`),
   so a DECISIONS.md template must keep that shape. It ignores HTML comments when checking numbers:
