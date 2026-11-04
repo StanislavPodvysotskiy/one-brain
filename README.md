@@ -1,5 +1,7 @@
 # One Brain
 
+[Русская версия](README.ru.md)
+
 **Shared project memory for all your AI assistants — plain Markdown files you own.**
 
 You use Claude, Kimi, Qwen, a local model, a web chat. Each one keeps its own history, and each
