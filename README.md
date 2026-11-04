@@ -73,6 +73,20 @@ Then:
 The full protocol the models follow is in [`template/AGENTS.md`](template/AGENTS.md); the
 condensed version they load as a skill is [`skills/one-brain/SKILL.md`](skills/one-brain/SKILL.md).
 
+### What to say to a model
+
+Plain phrases, in any language. A web chat without file access follows the same phrases through the
+clipboard scripts above.
+
+| Say | The model will |
+|---|---|
+| "Where did we stop?" | read the project and tell you its status and next step |
+| "Close the session" | save the summary and new decisions, update STATUS |
+| "Record a decision: …" | add an entry to `DECISIONS.md` |
+| "Create a project X" | create the project and link it to the current folder |
+| "What projects do I have?" | list the projects with their status and next step |
+| "Import your projects into One Brain" | bring in what it knows from its chat history, without duplicates |
+
 ### `brain.py` commands
 
 ```
